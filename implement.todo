@@ -1,0 +1,12 @@
+# Implement Features
+
+☐ Add one minute timer
+☐ Give suggestions when the timer time is low 
+    ☐ 1 minute timer
+    ☐ suggest words one word after 50 sec in every 10 sec 
+☐ change words only for computer science students
+☐ show the meaning once the session ends
+☐ Divide into component so that i makes sense
+☐ Display the "remaing guessess" count
+☐ Render some kind of "anti-confetti" when the game is lost, or another animation of some kind 
+☐ set a timer on the game that causes a loss if the time runs out 

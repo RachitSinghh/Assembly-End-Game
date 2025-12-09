@@ -97,6 +97,9 @@ span.chip.lost::before {
     left: 0;
     background-color: rgba(0, 0, 0, 0.7);
 }
+section.word > span.missed-letter{
+    color: red;
+}
 
 section.word {
     display: flex;
@@ -140,7 +143,10 @@ section.keyboard > button.correct {
 section.keyboard > button.wrong {
     background-color: #ec5d49;
 }
-
+section.keyboard > button:disabled{
+    cursor: not-allowed;
+    opacity: 0.5;
+}
 button.new-game {
     background-color: #11b5e5;
     border: 1px solid #d7d7d7;
@@ -151,4 +157,15 @@ button.new-game {
     display: block;
     cursor: pointer;
     margin-top: 36px;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { getFarewellText } from "./utils.js";
+import { getFarewellText, getRandomWord } from "./utils.js";
 import { clsx } from "clsx";
 import { languages } from "./languages";
 
+import Confetti from "react-confetti";
+
 export default function AssemblyEndgame() {
   // State values
-  const [currentWord, setCurrentWord] = useState("react");
+  // const [currentWord, setCurrentWord] = useState("react");
+  const [currentWord, setCurrentWord] = useState(() => getRandomWord());
   const [guessedLetters, setGuessedLetters] = useState([]);
   // Dervided values
   // Calculate how many wrong guesses the player has made
@@ -61,13 +64,18 @@ export default function AssemblyEndgame() {
 
   // Render the current word with letters revealed only if guessed
 
-  const letterElements = currentWord
-    .split("")
-    .map((letter, index) => (
-      <span key={index}>
-        {guessedLetters.includes(letter) ? letter.toUpperCase() : ""}
+  const letterElements = currentWord.split("").map((letter, index) => {
+    const shouldRevealLetter = isGameLost || guessedLetters.includes(letter);
+    const letterClassName = clsx(
+      isGameLost && !guessedLetters.includes(letter) && "missed-letter",
+    );
+    return (
+      <span key={index} className={letterClassName}>
+        {/* {guessedLetters.includes(letter) ? letter.toUpperCase() : ""}*/}
+        {shouldRevealLetter ? letter.toUpperCase() : ""}
       </span>
-    ));
+    );
+  });
 
   // Render keyboard buttons with correct/wrong styling based on guesses
 
@@ -84,7 +92,10 @@ export default function AssemblyEndgame() {
       <button
         className={className}
         key={letter}
+        aria-disabled={guessedLetters.includes(letter)}
+        aria-label={`Letter ${letter}`}
         onClick={() => addGuessedLetter(letter)}
+        disabled={isGameOver}
       >
         {letter.toUpperCase()}
       </button>
@@ -125,8 +136,20 @@ export default function AssemblyEndgame() {
 
     return null;
   }
+
+  function resetGame() {
+    setGuessedLetters([]);
+    setCurrentWord(getRandomWord);
+  }
   return (
     <main>
+      {isGameWon && (
+        <Confetti
+          numberOfPieces={300} // how many confetti pieces
+          gravity={0.3} // stops after falling
+          recycle={false} // stops after falling
+        />
+      )}
       <header>
         <h1>Assembly: Endgame</h1>
         <p>
@@ -134,18 +157,34 @@ export default function AssemblyEndgame() {
           from Assembly!
         </p>
       </header>
-      <section className={gameStatusClass}>{renderGameStatus()}</section>
+      <section aria-live="polite" role="status" className={gameStatusClass}>
+        {renderGameStatus()}
+      </section>
       <section className="language-chips">{languageElements}</section>
       <section className="word">{letterElements}</section>
       <section className="keyboard">{keyboardElements}</section>
-      {isGameOver && <button className="new-game">New Game</button>}
+      <section className="sr-only" aria-live="polite" role="status">
+        {/* Anything that we're going to put in this section just going to be read out by the Screen readers only */}
+        <p>
+          Current Word:{" "}
+          {currentWord
+            .split("")
+            .map((letter) =>
+              guessedLetters.includes(letter) ? letter + "." : "blank.",
+            )
+            .join(" ")}
+        </p>
+      </section>
+      {isGameOver && (
+        <button className="new-game" onClick={resetGame}>
+          New Game
+        </button>
+      )}
     </main>
   );
 }
 
 // BackLog:
-// - FareWell message in status section
-// fix ally issues
 // make new game button work
 // choose a random word from a list of words
 // confetting drop the user wins
