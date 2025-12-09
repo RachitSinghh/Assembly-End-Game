@@ -8,10 +8,11 @@ body {
     font-family: "Hanken Grotesk", Arial, sans-serif;
     background-color: #262626;
     color: #d9d9d9;
+    padding: 20px;
+    height: 100vh;
 }
 main {
     height: 100vh;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,11 +56,19 @@ section.game-status > h2 {
     margin: 5px;
 }
 
-section.game-status.won{
-   background-color: #10A95B; 
+section.game-status.won {
+    background-color: #10a95b;
 }
-section.game-status.lost{
-   background-color: #BA2A2A; 
+section.game-status.lost {
+    background-color: #ba2a2a;
+}
+section.game-status.farewell {
+    background-color: #7a5ea7;
+    border: 1px dashed #323232;
+}
+section.game-status > p.farewell-message {
+    font-style: italic;
+    font-weight: 400;
 }
 section.language-chips {
     display: flex;
