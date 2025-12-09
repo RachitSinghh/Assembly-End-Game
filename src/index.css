@@ -39,7 +39,7 @@ section.game-status {
     background-color: #10a95b;
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 350px;
     align-items: center;
     color: #f9f4da;
     border-radius: 4px;
@@ -55,6 +55,12 @@ section.game-status > h2 {
     margin: 5px;
 }
 
+section.game-status.won{
+   background-color: #10A95B; 
+}
+section.game-status.lost{
+   background-color: #BA2A2A; 
+}
 section.language-chips {
     display: flex;
     flex-wrap: wrap;
