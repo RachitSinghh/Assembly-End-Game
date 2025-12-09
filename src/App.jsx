@@ -151,7 +151,7 @@ export default function AssemblyEndgame() {
         />
       )}
       <header>
-        <h1>Assembly: Endgame</h1>
+        <h1>Skribble: For Computer Science Nerds</h1>
         <p>
           Guess the word within 8 attempts to keep the programming world safe
           from Assembly!
